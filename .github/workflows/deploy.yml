@@ -1,0 +1,50 @@
+name: Deploy to GitHub Pages
+
+# develop 브랜치에 push가 발생할 때 마다 실행
+on:
+  push:
+    branches: [ develop ]
+
+jobs:
+  deploy-to-github-pages:
+    runs-on: ubuntu-18.04
+    steps:
+    # develop branch를 기준으로 체크아웃
+    - uses: actions/checkout@v2
+      with:
+        ref: develop
+    
+    # .NET Core SDK 설치
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v1
+
+    # BlazorPage 프로젝트를 릴리즈버전으로 빌드하고 release폴더에 저장
+    - name: BlazorPage 릴리즈 버전으로 빌드
+      run: dotnet publish BlazorPage.csproj -c Release -o release --nologo
+    
+    # changes the base-tag in index.html from '/' to 'BlazorPage' to match GitHub Pages repository subdirectory
+    - name: Change base-tag in index.html from / to BlazorPage
+      run: sed -i 's/<base href="\/" \/>/<base href="\/BlazorPage\/" \/>/g' release/wwwroot/index.html
+    
+    # copy index.html to 404.html to serve the same file when a file is not found
+    - name: copy index.html to 404.html
+      run: cp release/wwwroot/index.html release/wwwroot/404.html
+
+    # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
+    - name: Add .nojekyll file
+      run: touch release/wwwroot/.nojekyll
+      
+    - name: Commit wwwroot to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@3.7.1
+      with:
+        GITHUB_TOKEN: ${{ secrets.Repository_Access_Token }}
+        BRANCH: gh-pages
+        FOLDER: release/wwwroot
+        
+        
+        
+        
+        
+        
+        
+        
