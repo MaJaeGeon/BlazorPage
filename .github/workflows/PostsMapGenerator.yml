@@ -1,0 +1,32 @@
+name: Posts Map Generator
+on:
+  push:
+    branches: [ posts ]
+
+jobs:
+  create-posts-map:
+    runs-on: ubuntu-latest  # ubuntu 최신버전에서 실행
+    steps:
+      - name: develop Checkout  # develop branch 의 파일들 가져오기
+        uses: actions/checkout@v3 
+        with:
+          ref: develop
+
+      - name: Set up Python # 파이썬 3.7버전 설치
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+
+      - name: posts Checkout
+        uses: actions/checkout@v3 # posts branch 의 파일들 가져오기
+        with: 
+          ref: posts
+          path: posts
+
+      - name: Run # postsmap.json 생성
+        run: |
+          ls -al
+          python PostsMapGenerator.py
+      
+      - name: deploy postsmap.json  # 생성한 PostsMap.json을 master branch로 배포함.
+        run: cat PostsMapGenerator.json
