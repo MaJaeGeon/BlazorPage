@@ -11,13 +11,13 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
     # develop branch를 기준으로 체크아웃
-    - uses: actions/checkout
+    - uses: actions/checkout@v2
       with:
         ref: develop
     
     # .NET Core SDK 설치
     - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet
+      uses: actions/setup-dotnet@v1
 
     # BlazorPage 프로젝트를 릴리즈버전으로 빌드하고 release폴더에 저장
     - name: BlazorPage 릴리즈 버전으로 빌드
@@ -36,7 +36,7 @@ jobs:
       run: touch release/wwwroot/.nojekyll
       
     - name: Commit wwwroot to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action
+      uses: JamesIves/github-pages-deploy-action@3.7.1
       with:
         GITHUB_TOKEN: ${{ secrets.Repository_Access_Token }}
         BRANCH: gh-pages
