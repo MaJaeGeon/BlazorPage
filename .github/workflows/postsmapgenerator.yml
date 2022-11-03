@@ -12,11 +12,7 @@ jobs:
   create-posts-map:
     runs-on: ubuntu-latest  # ubuntu 최신버전에서 실행
     steps:
-      - name: develop Checkout  # develop branch 의 파일들 가져오기
         uses: actions/checkout@v3 
-        with:
-          ref: develop
-          token: ${{secrets.REPOSITORY_ACCESS_TOKEN}}
 
       - name: Set up Python # 파이썬 3.7버전 설치
         uses: actions/setup-python@v2
