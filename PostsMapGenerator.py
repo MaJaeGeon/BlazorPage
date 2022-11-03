@@ -12,4 +12,4 @@ def path_to_dict(path):
     return d
 
 with open("PostsMapGenerator.json", 'w') as file:
-    json.dump(path_to_dict('./Posts/'), file)
+    json.dump(path_to_dict('./Posts/'), file) 
