@@ -5,7 +5,7 @@ on:
   push:
     branches: [ develop ]
     paths-ignore: 
-      - 'Posts/'
+      - 'Posts/**'
 
 jobs:
   deploy-to-github-pages:
