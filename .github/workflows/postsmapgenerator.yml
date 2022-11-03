@@ -1,9 +1,8 @@
+name: Posts Map Generator
 # PostsMapGenerator는 Posts 브랜치가 변경될 때 마다 실행되고
 # PostsMapGenerator에서 생성된 postsmap.json은 develop 브랜치에 배포되고
 # develop 브랜치가 변경될 때 마다 실행되는 deploy는 blazorwasm을 재 빌드함.
 
-
-name: Posts Map Generator
 on:
   push:
     branches:
