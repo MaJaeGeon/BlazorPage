@@ -4,8 +4,9 @@ name: Posts Map Generator
 # develop 브랜치가 변경될 때 마다 실행되는 deploy는 blazorwasm을 재 빌드함.
 
 on:
-  paths:
-    - 'posts/**'
+  push:
+    paths:
+      - 'posts/**'
 
 jobs:
   create-posts-map:
