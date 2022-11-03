@@ -12,11 +12,7 @@ jobs:
   create-posts-map:
     runs-on: ubuntu-latest  # ubuntu 최신버전에서 실행
     steps:
-<<<<<<< HEAD
       - uses: actions/checkout@v3 
-=======
-        uses: actions/checkout@v3 
->>>>>>> 4e89fe177567be5b841fd25aaf587ac2cbe51736
 
       - name: Set up Python # 파이썬 3.7버전 설치
         uses: actions/setup-python@v2
