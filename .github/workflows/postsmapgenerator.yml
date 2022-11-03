@@ -5,9 +5,9 @@ name: Posts Map Generator
 
 on:
   push:
-    branches: [ develop ]
     paths:
       - 'Posts/**'
+      - '/**'
 
 jobs:
   create-posts-map:
