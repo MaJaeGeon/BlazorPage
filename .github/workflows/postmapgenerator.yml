@@ -5,7 +5,8 @@ name: Posts Map Generator
 
 on:
   push:
-    branches: [ "posts" ]
+    branches: 
+      - 'posts'
     paths-ignore: 
       - '.github/**'
 
