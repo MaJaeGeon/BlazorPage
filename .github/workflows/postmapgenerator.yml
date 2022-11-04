@@ -6,6 +6,8 @@ name: Posts Map Generator
 on:
   push:
     branches: [ "posts" ]
+      paths-ignore: 
+        - '.github/**'
 
 jobs:
   create-posts-map:
@@ -18,24 +20,29 @@ jobs:
         with:
           python-version: 3.7
 
-      - name: checkout Posts
+      - name: checkout `develop brench` # develop 브랜치를 develop 디렉토리에 체크아웃
         uses: actions/checkout@v3 
         with:
-          ref: posts
-          path: posts
+          ref: develop
+          path: develop
 
-      - name: Run # postsmap.json 생성
+      - name: Run PostMapGenerator # postsmap.json 생성
         run: |
           ls -al
-          python PostsMapGenerator.py
+          python develop/PostsMapGenerator.py
+
+      - name: Remove develop checkout # develop checkout 디렉토리 삭제
+        run: |
+          rm -rf develop/
+          ls -al
 
       # git config를 등록하고, `git status --porcelain`으로 상태가 변경된 파일을 확인함.
       # 변경된 파일이 없다면 step 출력값을 flase로, 있다면 true를 줌.
       - name: Commit files  
         id: commit
         run: |
-          git config --local user.email "akworjs0517@gmail.com"
-          git config --local user.name "MaJaeGeon"
+          git config --local user.email "${{ secrets.GIT_EMAIL }}"
+          git config --local user.name "${{ secrets.GIT_NAME }}"
           git add --all
           if [-z "$(git status --porcelain)"]; then
             echo "push=false" >> $GITHUB_OUTPUT
