@@ -2,9 +2,8 @@ name: Deploy to GitHub Pages
 
 # develop 브랜치에 push가 발생할 때 마다 실행
 on: 
-  push: 
-    paths-ignore:
-      - 'posts/**'
+  push:
+    branches: [ "develop" ]
 
 jobs:
   deploy-to-github-pages:
