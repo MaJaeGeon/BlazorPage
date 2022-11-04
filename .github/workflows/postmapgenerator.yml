@@ -6,8 +6,8 @@ name: Posts Map Generator
 on:
   push:
     branches: [ "posts" ]
-      paths-ignore: 
-        - '.github/**'
+    paths-ignore: 
+      - '.github/**'
 
 jobs:
   create-posts-map:
