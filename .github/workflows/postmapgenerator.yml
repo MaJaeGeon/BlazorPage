@@ -1,0 +1,53 @@
+name: Posts Map Generator
+# PostsMapGenerator는 Posts 브랜치가 변경될 때 마다 실행되고
+# PostsMapGenerator에서 생성된 postsmap.json은 develop 브랜치에 배포되고
+# develop 브랜치가 변경될 때 마다 실행되는 deploy는 blazorwasm을 재 빌드함.
+
+on:
+  push:
+    branches: [ "posts" ]
+
+jobs:
+  create-posts-map:
+    runs-on: ubuntu-latest  # ubuntu 최신버전에서 실행
+    steps:
+      - uses: actions/checkout@v3 
+
+      - name: Set up Python # 파이썬 3.7버전 설치
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+
+      - name: checkout Posts
+        uses: actions/checkout@v3 
+        with:
+          ref: posts
+          path: posts
+
+      - name: Run # postsmap.json 생성
+        run: |
+          ls -al
+          python PostsMapGenerator.py
+
+      # git config를 등록하고, `git status --porcelain`으로 상태가 변경된 파일을 확인함.
+      # 변경된 파일이 없다면 step 출력값을 flase로, 있다면 true를 줌.
+      - name: Commit files  
+        id: commit
+        run: |
+          git config --local user.email "akworjs0517@gmail.com"
+          git config --local user.name "MaJaeGeon"
+          git add --all
+          if [-z "$(git status --porcelain)"]; then
+            echo "push=false" >> $GITHUB_OUTPUT
+          else
+            git commit -m "Add changes" -a
+            echo "push=true" >> $GITHUB_OUTPUT
+          fi
+        shell: bash
+
+      # Commit files 스텝에서 출력값으로 받아온 push가 true라면 깃허브에 푸시함.
+      - name: Push changes
+        if: steps.commit.outputs.push == 'true'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.REPOSITORY_ACCESS_TOKEN }}
