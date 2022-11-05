@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using Excubo.Blazor.TreeViews
 
 <PageTitle>Index</PageTitle>
 
@@ -6,4 +7,19 @@
 
 Welcome to your new app.
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+
+@if (Root == null) {
+    <p><em>Loading...</em></p>
+} else {
+    <table>
+        <tbody>
+            <TreeView Items="@Root.Children" GetChildren="(item) => item.Children">
+                <ItemTemplate>
+                    <tr>
+                        <td>@context.Item.Name</td>
+                    </tr>
+                </ItemTemplate>
+            </TreeView>
+        </tbody>
+    </table>
+}
