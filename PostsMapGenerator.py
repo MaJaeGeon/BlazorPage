@@ -16,8 +16,6 @@ def path_to_dict(path):
         if extention == ".md" or extention == ".html":
             d['type'] = "file"
             d['extention'] = extention
-        else:
-            return None
     return d
 
 with open("PostsMap.json", 'w') as file:
