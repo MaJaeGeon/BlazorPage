@@ -38,9 +38,9 @@ jobs:
           ls -al
           python develop/PostsMapGenerator.py "./gh-pages/"
 
-    - name: Commit wwwroot to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@3.7.1
-      with:
-        GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: gh-pages
+      - name: Commit wwwroot to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: gh-pages
