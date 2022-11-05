@@ -8,7 +8,7 @@ namespace BlazorPage.Pages {
             protected Root? Root {get;set;}
 
             protected override async Task OnParametersSetAsync() {
-                Console.WriteLine(Client);
+                Console.WriteLine(Client.BaseAddress.AbsoluteUri);
                 Root = await Client.GetFromJsonAsync<Root>("/PostsMap.json");
             }
     }
