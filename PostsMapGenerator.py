@@ -1,5 +1,6 @@
 import os
 import json
+import sys
 
 def path_to_dict(path):
     d = {
@@ -17,4 +18,4 @@ def path_to_dict(path):
     return d
 
 with open("PostsMap.json", 'w') as file:
-    json.dump(path_to_dict('./posts/'), file) 
+    json.dump(path_to_dict(sys.argv[1]), file) 
