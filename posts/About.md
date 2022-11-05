@@ -1,1 +1,1 @@
-끝이 보인다... please
+끝이 보인다... pleasettt
