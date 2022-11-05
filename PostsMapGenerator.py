@@ -17,5 +17,5 @@ def path_to_dict(path):
             d['type'] = "file"
     return d
 
-with open("PostsMap.json", 'w') as file:
-    json.dump(path_to_dict(sys.argv[1]), file) 
+with open("%sPostsMap.json" % sys.argv[1], 'w') as file:
+    json.dump(path_to_dict('./posts/'), file) 
