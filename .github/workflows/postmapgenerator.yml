@@ -27,36 +27,20 @@ jobs:
           ref: develop
           path: develop
 
+      - name: checkout `gh-pages brench` # gh-pages 브랜치를 gh-pages 디렉토리에 체크아웃
+        uses: actions/checkout@v3 
+        with:
+          ref: gh-pages
+          path: gh-pages
+
       - name: Run PostMapGenerator # postsmap.json 생성
         run: |
           ls -al
-          python develop/PostsMapGenerator.py
+          python develop/PostsMapGenerator.py "./gh-pages/"
 
-      - name: Remove develop checkout # develop checkout 디렉토리 삭제
-        run: |
-          rm -rf develop/
-          ls -al
-
-      # git config를 등록하고, `git status --porcelain`으로 상태가 변경된 파일을 확인함.
-      # 변경된 파일이 없다면 step 출력값을 flase로, 있다면 true를 줌.
-      - name: Commit files  
-        id: commit
-        run: |
-          git config --local user.email "${{ secrets.GIT_EMAIL }}"
-          git config --local user.name "${{ secrets.GIT_NAME }}"
-          git add --all
-          if [-z "$(git status --porcelain)"]; then
-            echo "push=false" >> $GITHUB_OUTPUT
-          else
-            git commit -m "Add changes" -a
-            echo "push=true" >> $GITHUB_OUTPUT
-          fi
-        shell: bash
-
-      # Commit files 스텝에서 출력값으로 받아온 push가 true라면 깃허브에 푸시함.
-      - name: Push changes
-        if: steps.commit.outputs.push == 'true'
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.REPOSITORY_ACCESS_TOKEN }}
-          branch: ${{ github.ref }}
+    - name: Commit wwwroot to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@3.7.1
+      with:
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: gh-pages
