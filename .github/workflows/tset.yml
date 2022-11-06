@@ -1,13 +1,12 @@
 name: Trigger Test
 
-on:
+on: 
   push:
-    branches: 
-      - 'posts'
+    branches: [ "posts" ]
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
-    - name: test
-      run: echo Hello
+    - name: Test
+      run: echo Hello, World
