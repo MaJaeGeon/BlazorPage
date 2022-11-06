@@ -1,0 +1,13 @@
+name: Trigger Test
+
+on:
+  push:
+    branches: 
+      - 'posts'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: test
+      run: echo Hello
