@@ -35,10 +35,10 @@ jobs:
       run: touch release/wwwroot/.nojekyll
 
     - name: checkout `gh-pages brench` # gh-pages 브랜치를 gh-pages 디렉토리에 체크아웃
-        uses: actions/checkout@v3 
-        with:
-          ref: gh-pages
-          path: gh-pages
+      uses: actions/checkout@v3 
+      with:
+        ref: gh-pages
+        path: gh-pages
 
     - name: move gh-pages/ContentsMap.json to wwwroot
       run: mv gh-pages/ContentsMap.json release/wwwroot/
