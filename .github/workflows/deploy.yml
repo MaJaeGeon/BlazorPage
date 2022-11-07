@@ -33,6 +33,15 @@ jobs:
     # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
     - name: Add .nojekyll file
       run: touch release/wwwroot/.nojekyll
+
+    - name: checkout `gh-pages brench` # gh-pages 브랜치를 gh-pages 디렉토리에 체크아웃
+        uses: actions/checkout@v3 
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+    - name: move gh-pages/ContentsMap.json to wwwroot
+      run: mv gh-pages/ContentsMap.json release/wwwroot/
       
     - name: Commit wwwroot to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@3.7.1
