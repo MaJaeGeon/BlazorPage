@@ -8,12 +8,12 @@
 Welcome to your new app.
 
 
-@if (Root == null) {
+@if (Contents == null) {
     <p><em>Loading...</em></p>
 } else {
     <table>
         <tbody>
-            <TreeView Items="@Root.Children" GetChildren="(item) => item.Children">
+            <TreeView Items="@Contents.Children" GetChildren="(item) => item.Children">
                 <ItemTemplate>
                     <tr>
                         <td>@context.Item.Name</td>
