@@ -11,7 +11,8 @@ namespace BlazorPage.Pages {
             protected override async Task OnParametersSetAsync() {
                 var root = await Client.GetFromJsonAsync<Root>("ContentsMap.json");
                 Contents = root.Children.Where(item => item.Name == "posts").FirstOrDefault();
-                Console.WriteLine(JsonSerializer.Serialize<Root>(root));
+
+                Console.WriteLine(JsonSerializer.Serialize<Root>(Contents));
             }
     }
 
