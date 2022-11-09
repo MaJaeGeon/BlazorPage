@@ -1,5 +1,6 @@
 ﻿@page "/{*pageRoute}"
 @using Excubo.Blazor.TreeViews
+@using System.Text.RegularExpressions
 
 <PageTitle>Index</PageTitle>
 
@@ -8,7 +9,10 @@
 Welcome to your new app.
 
 
-@if (PageRoute?.Split('.')[1] == "") {
+@if (Regex.IsMatch(PageRoute, @"^\/([A-z0-9-_+]+\/)*([A-z0-9]+\.(md))$")) {
+    <p><em>@PageRoute</em></p>
+    <p><em>.markdown</em></p>
+} else {
     <p><em>@PageRoute</em></p>
     <TreeView Items="@Contents.Children" GetChildren="(item) => item.Children">
         <ItemTemplate>
@@ -17,7 +21,4 @@ Welcome to your new app.
             </NavLink>
         </ItemTemplate>
     </TreeView>
-} else {
-    <p><em>@PageRoute</em></p>
-    <p><em>File.</em></p>
 }
