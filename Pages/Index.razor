@@ -11,15 +11,11 @@ Welcome to your new app.
 @if (Contents == null) {
     <p><em>Loading...</em></p>
 } else {
-    <table>
-        <tbody>
-            <TreeView Items="@Contents.Children" GetChildren="(item) => item.Children">
-                <ItemTemplate>
-                    <tr>
-                        <td>@context.Item.Name</td>
-                    </tr>
-                </ItemTemplate>
-            </TreeView>
-        </tbody>
-    </table>
+    <TreeView Items="@Contents.Children" GetChildren="(item) => item.Children">
+        <ItemTemplate>
+            <NavLink class="nav-link" href="@context.Item.Path">
+                @context.Item.Name
+            </NavLink>
+        </ItemTemplate>
+    </TreeView>
 }
