@@ -1,3 +1,4 @@
+using System.Text.Json;
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Components;
 
@@ -9,13 +10,7 @@ namespace BlazorPage.Pages {
 
             protected override async Task OnParametersSetAsync() {
                 Root = await Client.GetFromJsonAsync<Root>("ContentsMap.json");
-                Console.WriteLine(Root?.ToString());
-
-                Root = new Root() {
-                    Children = new List<Root>() {
-                        new Root {Name = "testList"}
-                    }
-                };
+                Console.WriteLine(JsonSerializer.Serialize<Root>(Root));
             }
     }
 
