@@ -8,7 +8,7 @@
   "resources": {
     "assembly": {
       "Blazor.TreeView.dll": "sha256-kkFEYZaeRRZPdXrTMn6qll5EgGNbb6pyWqmLydMtvgs=",
-      "BlazorPage.dll": "sha256-jyTs6d72Hwf9Wh0au0o3VcDSwMt6sV0ta\/T5m45w60U=",
+      "BlazorPage.dll": "sha256-eNUgWNwH+VJNyzUy+38n9N0mCtCin8Yx3zbrESdZMxg=",
       "Excubo.Generators.Blazor.Attributes.dll": "sha256-cSRLXt21DuLv6pMjS+M6vuDMiHLEGfjPquly6UQsmJQ=",
       "Microsoft.AspNetCore.Components.dll": "sha256-tFZgG4ZDkUPPMs1XAshDVQ4jkN6vR\/X01H7bu6qjU7s=",
       "Microsoft.AspNetCore.Components.Web.dll": "sha256-UyhgQHnMa\/1a+00rstLbF3T5Ho\/h+yYUU1+9zpZgPPE=",
