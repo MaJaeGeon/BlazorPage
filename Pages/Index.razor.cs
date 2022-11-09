@@ -8,8 +8,14 @@ namespace BlazorPage.Pages {
             protected Root? Root {get;set;}
 
             protected override async Task OnParametersSetAsync() {
-                Console.WriteLine(Client.BaseAddress.AbsoluteUri);
                 Root = await Client.GetFromJsonAsync<Root>("ContentsMap.json");
+                Console.WriteLine(Root?.ToString());
+
+                Root = new Root() {
+                    Children = new List<Root>() {
+                        new Root {Name = "testList"}
+                    }
+                };
             }
     }
 
