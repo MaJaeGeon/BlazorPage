@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Components;
 
 namespace BlazorPage.Pages {
     public partial class Index : ComponentBase {
+            [Parameter]
+            public string? PageRoute { get; set; }
             [Inject]
             protected HttpClient Client {get; set;} = null!;
             protected Root? Contents {get;set;}

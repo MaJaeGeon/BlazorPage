@@ -1,4 +1,4 @@
-﻿@page "/"
+﻿@page "/{*pageRoute}"
 @using Excubo.Blazor.TreeViews
 
 <PageTitle>Index</PageTitle>
@@ -11,6 +11,7 @@ Welcome to your new app.
 @if (Contents == null) {
     <p><em>Loading...</em></p>
 } else {
+    <p><em>@PageRoute</em></p>
     <TreeView Items="@Contents.Children" GetChildren="(item) => item.Children">
         <ItemTemplate>
             <NavLink class="nav-link" href="@context.Item.Path">
