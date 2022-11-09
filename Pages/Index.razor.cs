@@ -6,11 +6,12 @@ namespace BlazorPage.Pages {
     public partial class Index : ComponentBase {
             [Inject]
             protected HttpClient Client {get; set;} = null!;
-            protected Root? Root {get;set;}
+            protected Root? Contents {get;set;}
 
             protected override async Task OnParametersSetAsync() {
-                Root = await Client.GetFromJsonAsync<Root>("ContentsMap.json");
-                Console.WriteLine(JsonSerializer.Serialize<Root>(Root));
+                var root = await Client.GetFromJsonAsync<Root>("ContentsMap.json");
+                Contents = root.Children.Where(item => item.Name == "posts").FirstOrDefault();
+                Console.WriteLine(JsonSerializer.Serialize<Root>(root));
             }
     }
 
