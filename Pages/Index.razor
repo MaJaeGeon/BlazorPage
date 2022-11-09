@@ -8,9 +8,7 @@
 Welcome to your new app.
 
 
-@if (Contents == null) {
-    <p><em>Loading...</em></p>
-} else {
+@if (PageRoute?.Split('.')[1] == "") {
     <p><em>@PageRoute</em></p>
     <TreeView Items="@Contents.Children" GetChildren="(item) => item.Children">
         <ItemTemplate>
@@ -19,4 +17,7 @@ Welcome to your new app.
             </NavLink>
         </ItemTemplate>
     </TreeView>
+} else {
+    <p><em>@PageRoute</em></p>
+    <p><em>File.</em></p>
 }

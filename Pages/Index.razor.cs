@@ -4,16 +4,16 @@ using Microsoft.AspNetCore.Components;
 
 namespace BlazorPage.Pages {
     public partial class Index : ComponentBase {
-            [Parameter]
-            public string? PageRoute { get; set; }
-            [Inject]
-            protected HttpClient Client {get; set;} = null!;
-            protected Root? Contents {get;set;}
+        [Parameter]
+        public string? PageRoute { get; set; }
+        [Inject]
+        protected HttpClient Client {get; set;} = null!;
+        protected Root? Contents {get;set;}
 
-            protected override async Task OnParametersSetAsync() {
-                var root = await Client.GetFromJsonAsync<Root>("ContentsMap.json");
-                Contents = root.Children.Where(item => item.Name == "posts").FirstOrDefault();
-            }
+        protected override async Task OnParametersSetAsync() {
+            var root = await Client.GetFromJsonAsync<Root>("ContentsMap.json");
+            Contents = root.Children.Where(item => item.Name == "posts").FirstOrDefault();
+        }
     }
 
     public class Root {
