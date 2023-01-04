@@ -1,13 +1,55 @@
-name: Deploy to GitHub Pages
+name : Example Workflow
 
-# develop 브랜치에 push가 발생할 때 마다 실행
 on: 
   push:
-    branches: [ "develop" ]
-
+    branches:
+      - contents
+      - develop
 jobs:
+  Generate-Contents-Map:
+    runs-on: ubuntu-latest
+
+    # contents 브렌치에서 push가 발생했을 때에만 실행
+    if: github.ref_name == 'contents'
+
+    steps:
+      # wwwroot폴더에 contents branch 가져오기
+      - uses: actions/checkout@v3
+        with:
+          ref: contents
+          path: wwwroot
+
+      # Python 설치하기
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+
+      # contents경로에 ContentsMapGenerator으로 ContentsMap.json 생성 / arg[1] : 출력경로
+      - run: python ./wwwroot/ContentsMapGenerator.py "."
+
+      # ContentsMapGenerator.py 삭제
+      - run: rm -f ./wwwroot/ContentsMapGenerator.py
+
+      # gh-pages 브렌치를 gh-pages 경로로 가져오기
+      - uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+          path: gh-pages
+      
+      # wwwroot폴더를 gh-pages에 병합하기
+      - run: \cp -Rf /wwwroot/ /gh-pages/
+
+      # gh-pages에 gh-pages폴더 배포하기
+      - uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: gh-pages
+
   deploy-to-github-pages:
     runs-on: ubuntu-18.04
+    # contents 브렌치에서 push가 발생했을 때에만 실행
+    if: github.ref_name == 'develop'
     steps:
     # develop branch를 기준으로 체크아웃
     - uses: actions/checkout@v2
@@ -49,4 +91,3 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.Repository_Access_Token }}
         BRANCH: gh-pages
         FOLDER: release/wwwroot
-       
