@@ -13,6 +13,7 @@ namespace BlazorPage.Pages {
         protected override async Task OnParametersSetAsync() {
             
             var root = await Client.GetFromJsonAsync<Root>("ContentsMap.json");
+            Console.WriteLine(root.ToString());
             Contents = root.Children.Where(item => item.Name == "posts").FirstOrDefault();
         }
     }
